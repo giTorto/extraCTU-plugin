@@ -18,6 +18,7 @@ import java.util.Properties;
  * @author Giuliano Tortoreto
  */
 public class EstrazOperation extends EngineDependentOperation {
+
     private final Column column;
     private final String tipOp;
     private final String prefisso;
