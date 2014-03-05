@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 /**
+ * There are many test for the Operazione class
  * @author Giuliano Tortoreto
  */
 public class OperazioneTest {
