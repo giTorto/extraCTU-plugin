@@ -76,25 +76,19 @@ public class EstrazChange implements Change {
             json.value(columnIndex);
             json.key("objects");
 
-            /* Named objects nested array */
+            /* Objects array */
             {
                 /* Rows array */
                 json.array();
                 for (final Oggetto ogg : objects) {
-                    /* Ojects finded */
+                    /* Objects finded */
                     ogg.writeTo(json);
                 }
 
                 json.endArray();
             }
             json.key("addedRows");
-            /* Added row numbers array */
-            {
-                json.array();
-                for (Integer addedRowId : addedRowIds)
-                    json.value(addedRowId.intValue());
-                json.endArray();
-            }
+
             json.endObject();
         } catch (JSONException error) {
             throw new IOException(error);
@@ -105,7 +99,7 @@ public class EstrazChange implements Change {
      * Create a <tt>NERChange</tt> from a configuration reader
      *
      * @param reader The reader
-     * @param pool   (unused but required, since this method is called through reflection)
+     * @param pool   (unused but required)
      * @return A new <tt>NERChange</tt>
      * @throws Exception If the configuration is in an unexpected format
      */
@@ -118,23 +112,19 @@ public class EstrazChange implements Change {
         final int columnIndex = changeJson.getInt("column");
         final String[] serviceNames = JSONUtilities.getStringArray(changeJson, "services");
         
-        /* Named objects nested array */
+        /* Objects array */
         final JSONArray EntitiesJson = changeJson.getJSONArray("objects");
         final Oggetto[] Entities = new Oggetto[EntitiesJson.length()];
         /* Rows array */
         for (int i = 0; i < Entities.length; i++) {
-            /* Services array */
-            final JSONArray serviceResultsJson = EntitiesJson.getJSONArray(i);
+
+            final JSONArray ResultsJson = EntitiesJson.getJSONArray(i);
             for (int j = 0; j < Entities.length; j++) {
-                /* Service results array */
-                final JSONArray entitiesJson = serviceResultsJson.getJSONArray(j);
-                final Oggetto[] entities = new Oggetto[serviceResultsJson.length()];
+                final JSONArray entitiesJson = ResultsJson.getJSONArray(j);
+                final Oggetto[] entities = new Oggetto[ResultsJson.length()];
 
             }
         }
-        
-
-
 
         /* Reconstruct change object */
         final EstrazChange change = new EstrazChange(columnIndex, serviceNames[0],"", Entities);
@@ -174,11 +164,7 @@ public class EstrazChange implements Change {
         addedRowIds.clear();
 
 
-/*        //aggiunge righe vuote
-        for (final Row row : rows)
-            while (row.cells.size() < minRowSize)
-                row.cells.add(null);
-*/
+
         int c = 0;
         for (final Oggetto row : objects) {
             // Create new blank rows if objects don't fit on a single line
