@@ -1,0 +1,34 @@
+<div class="dialog-frame extraction">
+    <div class="dialog-header">
+        Extract emails/numbers/sites in <span class="column-name">column</span>
+    </div>
+    <div class="dialog-body">
+        <fieldset>
+            <p>
+                You can extract e-mails, telephone numbers and websites in the <span class="column-name">named</span> column
+                according to the feature you choose:
+            </p>
+            <hr/>
+
+                <div class="options  ">
+                    <button bind="extractEmails" class="button default">Extract e-mails</button>
+                </div>
+            <hr/>
+                <div class="options">
+                    <div class="forSelect">
+                        <label> Country of interest</label>
+                        <select id="countries"></select>
+                    </div>
+                    <button bind="extractNumbers" class="button default">Extract telephone numbers</button>
+                </div>
+            <hr/>
+                <div class="options " >
+                    <button bind="extractSites" class="button default" >Extract URLs</button>
+                </div>
+            <hr/>
+        </fieldset>
+    </div>
+    <div class="dialog-footer">
+        <button bind="cancel" class="button">Cancel</button>
+    </div>
+</div>

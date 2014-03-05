@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="JavaSE-1.6">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="build.xml" scope="COMPILE">
+		<relative-module-cls project-related="file://$PROJECT_DIR$/extensions/extractionRefin/build.xml"/>
+	</lib>
+</component>
