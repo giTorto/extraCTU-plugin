@@ -11,8 +11,7 @@ import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Command that starts a object extraction operation
- *
+ * Command that starts objects extraction operation
  * @author Giuliano Tortoreto
  */
 public class ExtractionCommand extends EngineDependentCommand {

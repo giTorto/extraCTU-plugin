@@ -10,11 +10,11 @@ import com.google.refine.util.JSONUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONWriter;
-
 import java.util.Properties;
 
 /**
- * Operation that starts a named-entity recognition process
+ * Operation that starts a objects recognition process.
+ * This class calls/create the EstrazProcess that performs objects extraction
  * @author Giuliano Tortoreto
  */
 public class EstrazOperation extends EngineDependentOperation {

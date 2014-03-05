@@ -1,12 +1,12 @@
-function ExtractionDialog(column) {
+function ObjectsDialog(column) {
     this.column = column;
 }
 
-ExtractionDialog.prototype = {
+ObjectsDialog.prototype = {
     init: function (callback) {
         var self = this,
             selectedServices = {},
-            dialogElement = this.dialogElement = $(DOM.loadHTML("extraction", "dialogs/extraction.html"));
+            dialogElement = this.dialogElement = $(DOM.loadHTML("extraction-extension", "dialogs/extraction.html"));
         var operazione = new String();
 
         /* Set labels */
@@ -16,7 +16,7 @@ ExtractionDialog.prototype = {
 
         /* Bind controls to actions */
         var controls = DOM.bind(this.dialogElement);
-        controls.cancel.click(this.bound("hide"));
+        controls.cancel.click(this.extraBound("hide"));
         controls.extractEmails.click(function () {
             operazione = "E-mails";
             self.extract(operazione);
@@ -79,7 +79,7 @@ ExtractionDialog.prototype = {
 
 
 
-        Refine.postProcess('extraction', 'estrazioni', data, {},
+        Refine.postProcess('extraction-extension', 'estrazioni', data, {},
             { rowsChanged: true, modelsChanged: true });
         this.hide();
     },
@@ -87,14 +87,7 @@ ExtractionDialog.prototype = {
 
 };
 
-function getSelectedText(elementId) {
-    var elt = document.getElementById(elementId);
 
-    if (elt.selectedIndex == -1)
-        return null;
-
-    return elt.options[elt.selectedIndex];
-}
 
 var countries = [
     {"name": "Afghanistan", "dial_code": "+93", "code": "AF"},

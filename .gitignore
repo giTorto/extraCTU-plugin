@@ -1,3 +1,5 @@
 *.class
 .settings
 module/MOD-INF/classes/
+*~
+.project

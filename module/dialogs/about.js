@@ -2,7 +2,7 @@ function AboutDialog() {}
 
 AboutDialog.prototype = {
   init: function () {
-    this.dialogElement = $(DOM.loadHTML("extraction", "dialogs/about.html"));
+    this.dialogElement = $(DOM.loadHTML("extraction-extension", "dialogs/about.html"));
     var controls = DOM.bind(this.dialogElement);
     controls.close.click(this.bound("hide"));
   },

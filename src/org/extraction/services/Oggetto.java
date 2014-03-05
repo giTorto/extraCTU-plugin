@@ -7,13 +7,12 @@ import org.json.JSONWriter;
 import java.util.ArrayList;
 
 /**
- *
+ * This class contains found objects and its functions allow to write found objects in a JSON representation
  * @author Giuliano Tortoreto
  */
 public class Oggetto {
     private final static String[] EMPTY_TYPE_SET = new String[0];
     private ArrayList<String> oggettiTrovati = new ArrayList<String>();
-
 
     public ArrayList<String> getOggettiTrovati() {
         return oggettiTrovati;
@@ -21,7 +20,6 @@ public class Oggetto {
 
     public boolean addOggettoTrovato(String oggetto) {
         oggettiTrovati.add(oggetto);
-
         return true;
     }
     /**
@@ -30,8 +28,6 @@ public class Oggetto {
      * @throws JSONException if an error occurs during writing
      */
     public void writeTo(final JSONWriter json) throws JSONException {
-
-
         for (String oggetto : oggettiTrovati) {
             json.object();
             json.key("oggettoTrovato");
@@ -42,7 +38,7 @@ public class Oggetto {
     }
 
     /**
-     * Convert the objects finded into a Refine worksheet cell
+     * Convert found objects into a Refine worksheet cell
      * @return The cell
      */
     public Cell toCell(int indiceOggetto) {

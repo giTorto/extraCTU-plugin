@@ -64,7 +64,7 @@ public class EstrazProcess extends LongRunningProcess implements Runnable {
         final Oggetto[] namedEntities = performExtraction();
 
         if (!_canceled) {
-            project.history.addEntry(new HistoryEntry(historyEntryId, project, _description, parentOperation, new EstrazChange(columnIndex, operazione,country, namedEntities)));
+            project.history.addEntry(new HistoryEntry(historyEntryId, project, _description, parentOperation, new EstrazChange(columnIndex, operazione, country, namedEntities)));
             project.processManager.onDoneProcess(this);
         }
     }
@@ -179,7 +179,7 @@ public class EstrazProcess extends LongRunningProcess implements Runnable {
     }
 
     /**
-     * Thread that executes a named-entity recognition service
+     * Thread that executes object recognition service
      */
     protected static class Extractor extends Thread {
         private final static Oggetto EMPTY_ENTITY_SET = new Oggetto();

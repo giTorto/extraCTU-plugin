@@ -10,7 +10,10 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
+/** This class allows to extract different kind of object from a string and returns an arraylist with
+ * the finded objects. First of all the class must be initialized with the object you want to extract.
+ * You can extract telephone numbers, e-mails and URLs.
+ * If the extract function returns null in case of wrong initialization or in case of no objects are finded
  * @author Giuliano Tortoreto
  */
 public class Operazione {
@@ -21,7 +24,7 @@ public class Operazione {
     private Integer minimaLunghezzaNum = 9;
 
     /**
-     * Never used.
+     * Never used
      * This is a constructor where you can choose the smallest telephone number you will find
      * @param operazione
      * @param minlunghezzaNumero
@@ -31,6 +34,14 @@ public class Operazione {
         this.minimaLunghezzaNum = minlunghezzaNumero;
     }
 
+    /**
+     * The only Operazione constructor the plugin is using. Every operation will choose the user
+     * the plugin will call this constructor with prefisso and country empty in the case of
+     * the extraction to perform is about e-mails and urls
+     * @param operazione this is the parameter that determines which kind of object the function will extract
+     * @param prefisso contains the value of the country dial code -> this is useless in case of the extraction to perform is e-mails and urls extraction, but basic for telephone numbers extraction
+     * @param country contains the country code(2 letters) -> this is useless in case of the extraction to perform is e-mails and urls extraction, but basic for telephone numbers extraction
+     */
     public Operazione(String operazione, String prefisso, String country) {
         this.operazione = operazione;
         this.prefisso = prefisso;
@@ -42,7 +53,7 @@ public class Operazione {
     }
 
     /**
-     * This function choose which function to call according to the chosen operation
+     * This function choose which function to call depending on the chosen operation
      * @param text the given text to check
      * @return  an object containing the list of the found object
      */
@@ -137,7 +148,7 @@ public class Operazione {
     }
 
     /**
-     * First of all this function checks if the dial_code is correct according to the country we are looking for,
+     * First of all this function checks if the dial_code is correct depending on the country we are looking for,
      * after that it calls checkPrefix for area code checking and things like that
      * nb. for it works online for italian numbers
      * @param number is the number to verify
@@ -150,6 +161,7 @@ public class Operazione {
         String numero = ptr.matcher(number).replaceAll("");
 
 
+        if (prefisso.equals("--"))
         if (prefisso.equals("--"))
             return true;
 

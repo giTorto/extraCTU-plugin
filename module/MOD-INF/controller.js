@@ -8,9 +8,8 @@ var logger = Packages.org.slf4j.LoggerFactory.getLogger("extraction-extension"),
 
 /* Initialize the extension. */
 function init() {
-  logger.info("Initializing service manager");
-  var cacheFolder = new refineServlet().getCacheDir("extraction-extension");
-  
+
+
   logger.info("Initializing commands");//i seguenti comandi verranno chiamati
   register("estrazioni", new commands.ExtractionCommand()); //comando chiamato in post
 
@@ -47,6 +46,7 @@ function init() {
       "dialogs/extraction.less",
     ]
   );
+
 
 }
 

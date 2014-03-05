@@ -1,15 +1,12 @@
-ExtractionContactsAndUrls_pluginRefine
+(pluginRefine) Extraction E-mails, Telephone numbers and Urls 
 ======================================
 
-This refine plugin allows the user to extract e-mails,urls and telephone numbers from a column in OpenRefine
+This refine plugin allows the user to extract e-mails, urls and telephone numbers from a column in OpenRefine
 
-write ant build in the root folder of the extension
-Run OpenRefine 
 
 ##Installation
 0. Compile the source code using ant build in the extension/plugin folder
-0. Start or re-start OpenRefine
-
+0. Follow the steps at https://github.com/OpenRefine/OpenRefine/wiki/Installing-Extensions
 
 ## Usage
 0. Open or create a project

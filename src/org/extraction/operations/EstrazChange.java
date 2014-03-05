@@ -1,6 +1,7 @@
 package org.extraction.operations;
 
 import com.google.refine.history.Change;
+import com.google.refine.model.Column;
 import com.google.refine.model.Project;
 import com.google.refine.model.Row;
 import com.google.refine.model.changes.CellAtRow;
@@ -20,7 +21,7 @@ import java.util.*;
 
 /**
  * After a change resulting from extraction,this class modify the table, adding a column and a cell
- * with the Objects extracted before in the EstrazProcess
+ * with the Objects extracted before in EstrazProcess
  * @author Giuliano Tortoreto
  */
 public class EstrazChange implements Change {
@@ -29,6 +30,7 @@ public class EstrazChange implements Change {
     private final String operazione;
     private final String country;
     private final List<Integer> addedRowIds;
+    private final String[] servizi = {"e-mails","URLs","sites"};
 
     /**
      * Creates a new <tt>Change</tt>
@@ -67,7 +69,6 @@ public class EstrazChange implements Change {
         }
     }
 
-
     public void save(final Writer writer, final Properties options) throws IOException {
         final JSONWriter json = new JSONWriter(writer);
         try {
@@ -78,16 +79,23 @@ public class EstrazChange implements Change {
 
             /* Objects array */
             {
-                /* Rows array */
                 json.array();
+                /* Rows array */
                 for (final Oggetto ogg : objects) {
                     /* Objects finded */
                     ogg.writeTo(json);
                 }
-
                 json.endArray();
             }
             json.key("addedRows");
+
+            /* Added row numbers array */
+            {
+                json.array();
+                for (Integer addedRowId : addedRowIds)
+                    json.value(addedRowId.intValue());
+                json.endArray();
+            }
 
             json.endObject();
         } catch (JSONException error) {
@@ -96,7 +104,7 @@ public class EstrazChange implements Change {
     }
 
     /**
-     * Create a <tt>NERChange</tt> from a configuration reader
+     * Create a <tt>Change</tt> from a configuration reader
      *
      * @param reader The reader
      * @param pool   (unused but required)
@@ -264,12 +272,21 @@ public class EstrazChange implements Change {
         final int[] cellIndexes = new int[1];
         final CustomColumnAdditionChange change;
 
+        Column column;
+        String nomeColonna;
         if ("".equals(country)){
-            change= new CustomColumnAdditionChange(operazione, columnIndex + 0, emptyCells);
+            nomeColonna = operazione;
+            while(project.columnModel.getColumnByName(nomeColonna)!=null){
+                nomeColonna = nomeColonna+"_new";
+            }
         }else{
-           change= new CustomColumnAdditionChange(operazione+"_"+country, columnIndex + 0, emptyCells);
+            nomeColonna = operazione+"_"+country;
+            while(project.columnModel.getColumnByName(nomeColonna)!=null){
+                nomeColonna = nomeColonna+"_new";
+            }
         }
 
+        change= new CustomColumnAdditionChange(nomeColonna, columnIndex + 0, emptyCells);
         change.apply(project);
         cellIndexes[0] = change.getCellIndex();
 
