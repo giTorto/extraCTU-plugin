@@ -12,8 +12,6 @@ ObjectsDialog.prototype = {
         /* Set labels */
         $('.column-name', dialogElement).text(this.column.name);
 
-
-
         /* Bind controls to actions */
         var controls = DOM.bind(this.dialogElement);
         controls.cancel.click(this.extraBound("hide"));
@@ -29,7 +27,10 @@ ObjectsDialog.prototype = {
             operazione = "URLs";
             self.extract(operazione);
         });
-
+        controls.extractIdentif.click(function() {
+            operazione = "Identification_Numbers";
+            self.extract(operazione);
+        })
 
         if (callback)
             callback.apply(self);

@@ -165,18 +165,18 @@ public class EstrazChange implements Change {
         if (rows.isEmpty())
             return;
 
+
         // Make sure all rows have enough cells, creating new ones as necessary
         final Integer maxCellIndex = Collections.max(Arrays.asList((ArrayUtils.toObject(cellIndexes))));
         final int minRowSize = maxCellIndex + 1;
         int rowNumber = 0;
         addedRowIds.clear();
 
-
-
         int c = 0;
         for (final Oggetto row : objects) {
             // Create new blank rows if objects don't fit on a single line
             int maxobject = 1;
+
             if(row.getOggettiTrovati()!=null)
                 maxobject = Math.max(maxobject, row.getOggettiTrovati().size());
 

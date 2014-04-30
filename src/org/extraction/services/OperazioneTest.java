@@ -502,4 +502,19 @@ public class OperazioneTest {
         }
     }
 
+    /**
+     * TODO: find some test and understand what do Davide whant
+     * @throws Exception
+     */
+    @Test
+    public void testIdentificationNumber() throws Exception{
+        String testo = "bla bla bla bla 567890234";
+        opUrls = new Operazione("Identif");
+        risultato = opUrls.extract(testo);
+
+        for(String identifNumber: risultato.getOggettiTrovati()){
+
+        }
+
+    }
 }

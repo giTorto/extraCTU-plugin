@@ -5,11 +5,14 @@
     <div class="dialog-body">
         <fieldset>
             <p>
-                You can extract e-mails, telephone numbers and websites in the <span class="column-name">named</span> column
+                You can extract e-mails, telephone numbers, identification numbers and websites in the <span class="column-name">named</span> column
                 according to the feature you choose:
             </p>
             <hr/>
-
+            <div class="options  ">
+                <button bind="extractIdentif" class="button default">Extract Identification Numbers</button>
+            </div>
+            <hr/>
                 <div class="options  ">
                     <button bind="extractEmails" class="button default">Extract e-mails</button>
                 </div>
