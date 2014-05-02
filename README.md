@@ -1,4 +1,4 @@
-(pluginRefine) Extraction E-mails, Telephone numbers and Urls 
+(pluginRefine) Extraction E-mails, Telephone numbers, Urls and the Identification Numbers
 ======================================
 
 This refine plugin allows the user to extract e-mails, urls and telephone numbers from a column in OpenRefine
@@ -11,7 +11,10 @@ This refine plugin allows the user to extract e-mails, urls and telephone number
 ## Usage
 0. Open or create a project
 0. Click the small triangle before the column name and choose *Extract e-mails,urls,etx...*
-0. Choose the interest operation
+..* Choose the interest operation
+0. Click Facet
+..* Choose custom text facet
+..* Write value.checkLuhn()
 
 ## License
 This extension is provided free of charge under the MIT license.
