@@ -74,7 +74,7 @@ public class Operazione {
         } else if (this.operazione.equals("Identification_Numbers")) {
             risultato = getIdentificationNumbers(text);
         }
-        return risultato;
+        return (risultato == null) ? new Oggetto() : risultato;
     }
 
     /**
@@ -328,10 +328,16 @@ public class Operazione {
 
         while (matcher.find()) {
             result = matcher.group();
-            temp = result.replaceAll("(\\D)","");
-            arrayInt = stringToIntArray(temp);
-            if (checkIdentificationNumbers(arrayInt))
-                risultati.addOggettoTrovato(temp);
+            temp = result.replaceAll("(\\D)", "");
+            arrayInt = new int[0];
+            try {
+                arrayInt = stringToIntArray(temp);
+                if (checkIdentificationNumbers(arrayInt))
+                    risultati.addOggettoTrovato(temp);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return risultati;
@@ -341,7 +347,7 @@ public class Operazione {
      * @param digits
      * @return
      */
-    public boolean checkIdentificationNumbers(int[] digits) {
+    public static boolean checkIdentificationNumbers(int[] digits) {
         int sum = 0;
         int length = digits.length;
         for (int i = 0; i < length; i++) {
@@ -362,14 +368,13 @@ public class Operazione {
      * @param s
      * @return
      */
-    public int[] stringToIntArray(String s) {
+    public static int[] stringToIntArray(String s) throws Exception {
         int[] intArray;
 
         intArray = new int[s.length()];
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) {
-                System.out.println("Contains an invalid digit");
-                break;
+                throw new Exception("Contains an invalid digit");
             }
             intArray[i] = Integer.parseInt(String.valueOf(s.charAt(i)));
         }

@@ -22,6 +22,7 @@ public class Oggetto {
         oggettiTrovati.add(oggetto);
         return true;
     }
+
     /**
      * Writes the objects in a JSON representation
      * @param json The JSON writer

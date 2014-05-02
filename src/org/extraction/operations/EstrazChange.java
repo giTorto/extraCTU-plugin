@@ -165,7 +165,6 @@ public class EstrazChange implements Change {
         if (rows.isEmpty())
             return;
 
-
         // Make sure all rows have enough cells, creating new ones as necessary
         final Integer maxCellIndex = Collections.max(Arrays.asList((ArrayUtils.toObject(cellIndexes))));
         final int minRowSize = maxCellIndex + 1;
@@ -233,7 +232,6 @@ public class EstrazChange implements Change {
     protected static class CustomColumnAdditionChange extends ColumnAdditionChange {
         /**
          * Create a new <tt>CustomColumnAdditionChange</tt>
-         *
          * @param columnName  The column name
          * @param columnIndex The column index
          * @param newCells    The new cells

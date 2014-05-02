@@ -25,6 +25,10 @@ function init() {
     module, "extraction", Packages.org.extraction.operations.EstrazOperation
   );
 
+
+   Packages.com.google.refine.grel.ControlFunctionRegistry.registerFunction(
+        "checkLuhn", new Packages.org.extraction.functions.CheckLuhn());
+
   logger.info("Initializing client resources");
   var resourceManager = Packages.com.google.refine.ClientSideResourceManager;
   resourceManager.addPaths(
