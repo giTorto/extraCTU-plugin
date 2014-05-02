@@ -23,7 +23,7 @@ public class CheckLuhn implements Function {
 
             if (stringa instanceof String){
                 if (("".equals((String) stringa)) || (" ".equals((String) stringa))){
-                    return "Empty";
+                    return "empty";
                 }
 
                 try{
