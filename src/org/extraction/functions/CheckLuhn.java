@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class CheckLuhn implements Function {
     @Override
-    public Object call(Properties bindings, Object[] args) throws JSONException {
+    public Object call(Properties bindings, Object[] args) {
         if (args.length == 1) {
             Object stringa = args[0];
             int[] values;
