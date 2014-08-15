@@ -29,13 +29,15 @@ public class Oggetto {
      * @throws JSONException if an error occurs during writing
      */
     public void writeTo(final JSONWriter json) throws JSONException {
+        json.object();
+        json.key("array");
+        json.array();
         for (String oggetto : oggettiTrovati) {
-            json.object();
-            json.key("oggettoTrovato");
             json.value(oggetto);
-            json.endObject();
         }
 
+        json.endArray();
+        json.endObject();
     }
 
     /**

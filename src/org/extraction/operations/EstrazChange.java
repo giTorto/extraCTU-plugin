@@ -13,7 +13,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.extraction.services.Oggetto;
 import org.json.*;
 
-import java.lang.*;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Writer;
@@ -51,6 +50,7 @@ public class EstrazChange implements Change {
     @Override
     public void apply(final Project project) {
         synchronized (project) {
+            System.out.println("I'm applying");
             final int[] cellIndexes = createColumn(project);
             insertValues(project, cellIndexes);
             project.update();
@@ -74,7 +74,12 @@ public class EstrazChange implements Change {
         try {
             json.object();
             json.key("column");
-            json.value(columnIndex);
+            json.value(this.columnIndex);
+            json.key("operazione");
+            json.value(this.operazione);
+            json.key("country");
+            json.value(this.country);
+
             json.key("objects");
 
             /* Objects array */
@@ -118,24 +123,27 @@ public class EstrazChange implements Change {
         
         /* Simple properties */
         final int columnIndex = changeJson.getInt("column");
-        final String[] serviceNames = JSONUtilities.getStringArray(changeJson, "services");
-        
+        final String operazione = changeJson.getString("operazione");
+        final String country = changeJson.getString("country");
+
+
         /* Objects array */
         final JSONArray EntitiesJson = changeJson.getJSONArray("objects");
         final Oggetto[] Entities = new Oggetto[EntitiesJson.length()];
         /* Rows array */
         for (int i = 0; i < Entities.length; i++) {
 
-            final JSONArray ResultsJson = EntitiesJson.getJSONArray(i);
-            for (int j = 0; j < Entities.length; j++) {
-                final JSONArray entitiesJson = ResultsJson.getJSONArray(j);
-                final Oggetto[] entities = new Oggetto[ResultsJson.length()];
+            JSONObject rowResults = EntitiesJson.getJSONObject(i);
+            JSONArray Results = rowResults.getJSONArray("array");
+            Entities[i] = new Oggetto();
+            for (int j = 0; j < Results.length(); j++) {
+                Entities[i].addOggettoTrovato(Results.getString(j));
 
             }
         }
 
         /* Reconstruct change object */
-        final EstrazChange change = new EstrazChange(columnIndex, serviceNames[0],"", Entities);
+        final EstrazChange change = new EstrazChange(columnIndex, operazione, country, Entities);
         for (final int addedRowId : JSONUtilities.getIntArray(changeJson, "addedRows"))
             change.addedRowIds.add(addedRowId);
         return change;

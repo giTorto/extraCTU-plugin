@@ -6,10 +6,10 @@ import com.google.refine.model.Project;
 import com.google.refine.operations.EngineDependentOperation;
 import com.google.refine.operations.OperationRegistry;
 import com.google.refine.process.Process;
-import com.google.refine.util.JSONUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONWriter;
+
 import java.util.Properties;
 
 /**
@@ -65,8 +65,6 @@ public class EstrazOperation extends EngineDependentOperation {
         writer.value(column.getName());
         writer.key("tipOp");
         writer.value(tipOp);
-        writer.key("services");
-        JSONUtilities.writeStringArray(writer, types);
 
         writer.key("prefix");
         writer.value(prefisso);
@@ -82,7 +80,7 @@ public class EstrazOperation extends EngineDependentOperation {
      */
     @Override
     protected String getBriefDescription(final Project project) {
-        return String.format("Recognize object in column %s", column.getName());
+        return String.format("Extracting " + tipOp + " in column %s", column.getName());
     }
 
     /**
