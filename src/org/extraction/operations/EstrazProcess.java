@@ -31,7 +31,7 @@ public class EstrazProcess extends LongRunningProcess implements Runnable {
     private final String country;
 
     /**
-     * Creates a new <tt>NERProcess</tt>
+     * Creates a new <tt>EstrazProcess</tt>
      *
      * @param project         The project
      * @param column          The column on which named-entity recognition is performed

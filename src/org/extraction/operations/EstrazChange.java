@@ -112,8 +112,8 @@ public class EstrazChange implements Change {
      *
      * @param reader The reader
      * @param pool   (unused but required)
-     * @return A new <tt>NERChange</tt>
-     * @throws Exception If the configuration is in an unexpected format
+     * @return A new <tt>EstrazChange</tt>
+     * @throws Exception If the configuratio is in an unexpected format
      */
     static public Change load(LineNumberReader reader, Pool pool) throws Exception {
         /* Parse JSON line */
