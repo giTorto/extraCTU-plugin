@@ -15,7 +15,7 @@ function init() {
 
 
   refineServlet.registerClassMapping(
-    "com.google.refine.model.changes.DataExtensionChange",
+    "baluba",//"com.google.refine.model.changes.DataExtensionChange",
     "org.extraction.operations.EstrazChange"
   );
   

@@ -9,14 +9,15 @@ import com.google.refine.model.changes.ColumnAdditionChange;
 import com.google.refine.model.changes.ColumnRemovalChange;
 import com.google.refine.util.JSONUtilities;
 import com.google.refine.util.Pool;
-import org.apache.commons.lang.ArrayUtils;
 import org.extraction.services.Oggetto;
 import org.json.*;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Writer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * After a change resulting from extraction,this class modify the table, adding a column and a cell
@@ -29,7 +30,6 @@ public class EstrazChange implements Change {
     private final String operazione;
     private final String country;
     private final List<Integer> addedRowIds;
-    private final String[] servizi = {"e-mails","URLs","sites"};
 
     /**
      * Creates a new <tt>Change</tt>
@@ -50,8 +50,7 @@ public class EstrazChange implements Change {
     @Override
     public void apply(final Project project) {
         synchronized (project) {
-            System.out.println("I'm applying");
-            final int[] cellIndexes = createColumn(project);
+            final int cellIndexes = createColumn(project);
             insertValues(project, cellIndexes);
             project.update();
         }
@@ -167,14 +166,14 @@ public class EstrazChange implements Change {
      * @param project     The project
      * @param cellIndexes The cell indexes of the rows that will contain the named entities
      */
-    protected void insertValues(final Project project, final int[] cellIndexes) {
+    protected void insertValues(final Project project, final int cellIndexes) {
         final List<Row> rows = project.rows;
         // Make sure there are rows
         if (rows.isEmpty())
             return;
 
         // Make sure all rows have enough cells, creating new ones as necessary
-        final Integer maxCellIndex = Collections.max(Arrays.asList((ArrayUtils.toObject(cellIndexes))));
+        final Integer maxCellIndex = cellIndexes;
         final int minRowSize = maxCellIndex + 1;
         int rowNumber = 0;
         addedRowIds.clear();
@@ -202,7 +201,7 @@ public class EstrazChange implements Change {
             final ArrayList<String> oggetti = row.getOggettiTrovati();
             for (int r = 0; r < oggetti.size(); r++) {
                 Row riga = rows.get(rowNumber + r);
-                riga.cells.set(cellIndexes[0], row.toCell(r));
+                riga.cells.set(cellIndexes, row.toCell(r));
             }
 
 
@@ -267,7 +266,7 @@ public class EstrazChange implements Change {
      * @param project The project
      * @return The cell indexes of the created columns
      */
-    protected int[] createColumn(final Project project) {
+    protected int createColumn(final Project project) {
         // Create empty cells that will populate each row
         final int rowCount = project.rows.size();
         final ArrayList<CellAtRow> emptyCells = new ArrayList<CellAtRow>(rowCount);
@@ -275,7 +274,7 @@ public class EstrazChange implements Change {
             emptyCells.add(new CellAtRow(r, null));
 
         // Create rows
-        final int[] cellIndexes = new int[1];
+        final int cellIndexes;
         final CustomColumnAdditionChange change;
 
         Column column;
@@ -294,7 +293,7 @@ public class EstrazChange implements Change {
 
         change= new CustomColumnAdditionChange(nomeColonna, columnIndex + 0, emptyCells);
         change.apply(project);
-        cellIndexes[0] = change.getCellIndex();
+        cellIndexes = change.getCellIndex();
 
         // Return cell indexes of created rows
         return cellIndexes;
