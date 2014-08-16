@@ -208,7 +208,6 @@ public class EstrazChange implements Change {
             // Advance to the next original row
             rowNumber += maxobject;
 
-            addedRowIds.clear();
         }
 
     }
