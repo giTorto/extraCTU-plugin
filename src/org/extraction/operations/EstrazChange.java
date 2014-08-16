@@ -231,33 +231,6 @@ public class EstrazChange implements Change {
         addedRowIds.clear();
     }
 
-    /**
-     * Subclass of <tt>ColumnAdditionChange</tt>
-     * that provides access to the cell index of the created column
-     */
-    protected static class CustomColumnAdditionChange extends ColumnAdditionChange {
-        /**
-         * Create a new <tt>CustomColumnAdditionChange</tt>
-         * @param columnName  The column name
-         * @param columnIndex The column index
-         * @param newCells    The new cells
-         */
-        public CustomColumnAdditionChange(final String columnName, final int columnIndex,
-                                          final List<CellAtRow> newCells) {
-            super(columnName, columnIndex, newCells);
-        }
-
-        /**
-         * Gets the cell index of the created column
-         *
-         * @return The cell index
-         */
-        public int getCellIndex() {
-            if (_newCellIndex < 0)
-                throw new IllegalStateException("The cell index has not yet been set.");
-            return _newCellIndex;
-        }
-    }
 
     /**
      * Create the columns where the objects will be stored
@@ -273,8 +246,9 @@ public class EstrazChange implements Change {
             emptyCells.add(new CellAtRow(r, null));
 
         // Create rows
+
         final int cellIndexes;
-        final CustomColumnAdditionChange change;
+        final ColumnAdditionChange change;
 
         Column column;
         String nomeColonna;
@@ -290,9 +264,11 @@ public class EstrazChange implements Change {
             }
         }
 
-        change= new CustomColumnAdditionChange(nomeColonna, columnIndex + 0, emptyCells);
+        change= new ColumnAdditionChange(nomeColonna, columnIndex , emptyCells);
         change.apply(project);
-        cellIndexes = change.getCellIndex();
+
+        Column newColumn = project.columnModel.getColumnByName(nomeColonna);
+        cellIndexes =  newColumn.getCellIndex();
 
         // Return cell indexes of created rows
         return cellIndexes;
