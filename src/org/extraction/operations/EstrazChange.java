@@ -34,8 +34,8 @@ public class EstrazChange implements Change {
     /**
      * Creates a new <tt>Change</tt>
      *
-     * @param columnIndex The index of the column used for object finded
-     * @param operazione  The names of the used services
+     * @param columnIndex The index of the position of the new column
+     * @param operazione  The name of the used services
      * @param objects    The extracted named objects per row and service
      */
     public EstrazChange(final int columnIndex, final String operazione,final String country, final Oggetto[] objects) {
@@ -113,7 +113,7 @@ public class EstrazChange implements Change {
      * @param reader The reader
      * @param pool   (unused but required)
      * @return A new <tt>EstrazChange</tt>
-     * @throws Exception If the configuratio is in an unexpected format
+     * @throws Exception If the configuration is in an unexpected format
      */
     static public Change load(LineNumberReader reader, Pool pool) throws Exception {
         /* Parse JSON line */
@@ -172,9 +172,9 @@ public class EstrazChange implements Change {
         if (rows.isEmpty())
             return;
 
-        // Make sure all rows have enough cells, creating new ones as necessary
-        final Integer maxCellIndex = cellIndexes;
-        final int minRowSize = maxCellIndex + 1;
+        // Make sure all rows have enough cells, creating new one as necessary
+        final int minRowSize = cellIndexes +1;
+
         int rowNumber = 0;
         addedRowIds.clear();
 
@@ -253,12 +253,12 @@ public class EstrazChange implements Change {
         Column column;
         String nomeColonna;
         if ("".equals(country)){
-            nomeColonna = operazione;
+            nomeColonna = operazione +"_"+ (project.columnModel.getColumnNames()).get(columnIndex-1);
             while(project.columnModel.getColumnByName(nomeColonna)!=null){
                 nomeColonna = nomeColonna+"_new";
             }
         }else{
-            nomeColonna = operazione+"_"+country;
+            nomeColonna = operazione+"_"+country +"_"+ (project.columnModel.getColumnNames()).get(columnIndex-1);
             while(project.columnModel.getColumnByName(nomeColonna)!=null){
                 nomeColonna = nomeColonna+"_new";
             }
