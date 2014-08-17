@@ -178,7 +178,6 @@ public class EstrazChange implements Change {
         int rowNumber = 0;
         addedRowIds.clear();
 
-        int c = 0;
         for (final Oggetto row : objects) {
             // Create new blank rows if objects don't fit on a single line
             int maxobject = 1;
@@ -196,8 +195,6 @@ public class EstrazChange implements Change {
             }
 
             // Place all objects
-            c++;
-
             final ArrayList<String> oggetti = row.getOggettiTrovati();
             for (int r = 0; r < oggetti.size(); r++) {
                 Row riga = rows.get(rowNumber + r);

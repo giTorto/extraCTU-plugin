@@ -54,9 +54,6 @@ public class EstrazProcess extends LongRunningProcess implements Runnable {
         this.prefisso = prefisso;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void run() {
         final int columnIndex = project.columnModel.getColumnIndexByName(column.getName()) + 1;
