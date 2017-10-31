@@ -2,6 +2,15 @@ function ObjectsDialog(column) {
     this.column = column;
 }
 
+function getSelectedText(elementId) {
+     var elt = document.getElementById(elementId);
+  
+     if (elt.selectedIndex == -1)
+         return null;
+ 
+     return elt.options[elt.selectedIndex];
+ }
+
 ObjectsDialog.prototype = {
     init: function (callback) {
         var self = this,
